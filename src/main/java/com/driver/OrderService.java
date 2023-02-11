@@ -49,4 +49,8 @@ public class OrderService {
     public Integer getOrdersLeftAfterGivenTimeByPartnerId(String partnerId) {
         return orderRepository.getOrdersLeftAfterGivenTimeByPartnerId(partnerId);
     }
+
+    public void addOrderPartnerPair(String orderId, String partnerId) {
+        orderRepository.addOrderPartnerPair(orderId, partnerId);
+    }
 }
