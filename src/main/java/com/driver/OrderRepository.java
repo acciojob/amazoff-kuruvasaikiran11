@@ -1,5 +1,6 @@
 package com.driver;
 
+import io.swagger.models.auth.In;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -10,11 +11,16 @@ public class OrderRepository {
     private Map<String, Order> orderMap;
     private Map<String, Integer> deliveryPartnerMap;
     private Map<String, List<String>> orderPartnerMap;
+    private Map<String, String> lastDeliveryTimeByPartnerMap;
+
+    private Map<String, Integer> orderCountByPartnerMap;
 
     OrderRepository(){
         this.orderMap = new HashMap<>();
         this.deliveryPartnerMap = new HashMap<>();
         this.orderPartnerMap = new HashMap<>();
+        this.orderCountByPartnerMap = new HashMap<>();
+        this.lastDeliveryTimeByPartnerMap = new HashMap<>();
     }
 
 
@@ -28,15 +34,15 @@ public class OrderRepository {
     }
 
     public Order getOrder(String orderId) {
-        if(orderId == null) return null;
+        if(orderId == null) return new Order();
 
         if(orderMap.containsKey(orderId)) return orderMap.get(orderId);
-        else return null;
+        else return new Order();
     }
 
 
     public DeliveryPartner getPartner(String partnerId) {
-        if(partnerId == null) return null;
+        if(partnerId == null) return new DeliveryPartner();
 
         DeliveryPartner deliveryPartner = new DeliveryPartner(partnerId);
         int orders = deliveryPartnerMap.get(partnerId);
@@ -53,7 +59,7 @@ public class OrderRepository {
     }
 
     public String getLastDeliveryTimeByPartnerId(String partnerId) {
-        return "";
+        return " ";
     }
 
     public List<String> getOrdersByPartnerId(String partnerId) {
