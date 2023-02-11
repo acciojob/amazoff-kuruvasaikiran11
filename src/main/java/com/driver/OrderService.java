@@ -29,4 +29,12 @@ public class OrderService {
     public List<String> getAllOrders() {
         return orderRepository.getAllOrders();
     }
+
+    public String getLastDeliveryTimeByPartnerId(String partnerId) {
+        return orderRepository.getLastDeliveryTimeByPartnerId(partnerId);
+    }
+
+    public List<String> getOrdersByPartnerId(String partnerId) {
+        return orderRepository.getOrdersByPartnerId(partnerId);
+    }
 }

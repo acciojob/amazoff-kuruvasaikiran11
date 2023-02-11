@@ -3,10 +3,7 @@ package com.driver;
 import org.springframework.stereotype.Repository;
 
 import javax.swing.*;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class OrderRepository {
@@ -50,6 +47,15 @@ public class OrderRepository {
         for (String order : orderMap.keySet()) {
             orders.add(order);
         }
+        return orders;
+    }
+
+    public String getLastDeliveryTimeByPartnerId(String partnerId) {
+        return "";
+    }
+
+    public List<String> getOrdersByPartnerId(String partnerId) {
+        List<String> orders = new ArrayList<>();
         return orders;
     }
 }
