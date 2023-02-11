@@ -16,8 +16,8 @@ public class OrderRepository {
 
     private Map<String, Integer> orderCountByPartnerMap;
 
-    @Autowired
-    DeliveryPartner count;
+
+    DeliveryPartner count = new DeliveryPartner();
     OrderRepository(){
         this.orderMap = new HashMap<>();
         this.deliveryPartnerMap = new HashMap<>();
