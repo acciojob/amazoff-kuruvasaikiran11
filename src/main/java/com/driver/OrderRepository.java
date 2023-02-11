@@ -1,6 +1,7 @@
 package com.driver;
 
 import io.swagger.models.auth.In;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -15,6 +16,8 @@ public class OrderRepository {
 
     private Map<String, Integer> orderCountByPartnerMap;
 
+    @Autowired
+    DeliveryPartner count;
     OrderRepository(){
         this.orderMap = new HashMap<>();
         this.deliveryPartnerMap = new HashMap<>();
@@ -25,10 +28,8 @@ public class OrderRepository {
 
 
     public void addOrder(Order order) {
-        Order newOrder;
-        newOrder = order;
         String id = order.getId();
-        orderMap.put(id, newOrder);
+        orderMap.put(id, order);
     }
 
     public void addPartner(String partnerId) {
@@ -46,7 +47,7 @@ public class OrderRepository {
 
 
     public DeliveryPartner getPartner(String partnerId) {
-        if(partnerId == null) return new DeliveryPartner();
+        if(partnerId == null) return null;
 
         return deliveryPartnerMap.get(partnerId);
     }
@@ -72,7 +73,7 @@ public class OrderRepository {
 
     public Integer getOrderCountByPartnerId(String partnerId) {
         if(deliveryPartnerMap.containsKey(partnerId))
-            return 1;
+            return count.getNumberOfOrders();
         else return 0;
     }
 
@@ -91,8 +92,25 @@ public class OrderRepository {
             if(orderPartnerMap.containsKey(partnerId)){
                 orders = orderPartnerMap.get(partnerId);
             }
-            orders.add(partnerId);
+            orders.add(orderId);
+            count.setNumberOfOrders(count.getNumberOfOrders() + 1);
             orderPartnerMap.put(partnerId, orders);
+        }
+    }
+
+    public void deletePartnerById(String partnerId) {
+        //DeliveryPartner partner = deliveryPartnerMap.get(partnerId);
+        List<String> assignedOrders = orderPartnerMap.get(partnerId);
+        for(String str : assignedOrders){
+            deliveryPartnerMap.remove(str);
+        }
+        orderPartnerMap.remove(partnerId);
+    }
+
+    public void deleteOrderById(String orderId) {
+        List<String> assignedOrders = orderPartnerMap.get(orderId);
+        for(String str : assignedOrders) {
+            orderMap.remove(str);
         }
     }
 }
