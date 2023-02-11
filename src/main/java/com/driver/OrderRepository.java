@@ -9,7 +9,7 @@ import java.util.*;
 public class OrderRepository {
 
     private Map<String, Order> orderMap;
-    private Map<String, Integer> deliveryPartnerMap;
+    private Map<String, DeliveryPartner> deliveryPartnerMap;
     private Map<String, List<String>> orderPartnerMap;
     private Map<String, String> lastDeliveryTimeByPartnerMap;
 
@@ -30,7 +30,8 @@ public class OrderRepository {
     }
 
     public void addPartner(String partnerId) {
-        deliveryPartnerMap.put(partnerId, deliveryPartnerMap.getOrDefault(partnerId, 0) + 1);
+        DeliveryPartner deliveryPartner = new DeliveryPartner(partnerId);
+        deliveryPartnerMap.put(partnerId, deliveryPartner);
     }
 
     public Order getOrder(String orderId) {
@@ -44,10 +45,7 @@ public class OrderRepository {
     public DeliveryPartner getPartner(String partnerId) {
         if(partnerId == null) return new DeliveryPartner();
 
-        DeliveryPartner deliveryPartner = new DeliveryPartner(partnerId);
-        int orders = deliveryPartnerMap.get(partnerId);
-        deliveryPartner.setNumberOfOrders(orders);
-        return deliveryPartner;
+        return deliveryPartnerMap.get(partnerId);
     }
 
     public List<String> getAllOrders() {
