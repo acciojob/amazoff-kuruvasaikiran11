@@ -2,7 +2,6 @@ package com.driver;
 
 import org.springframework.stereotype.Repository;
 
-import javax.swing.*;
 import java.util.*;
 
 @Repository
@@ -57,5 +56,19 @@ public class OrderRepository {
     public List<String> getOrdersByPartnerId(String partnerId) {
         List<String> orders = new ArrayList<>();
         return orders;
+    }
+
+    public Integer getOrderCountByPartnerId(String partnerId) {
+        if(deliveryPartnerMap.containsKey(partnerId))
+            return 1;
+        else return 0;
+    }
+
+    public Integer getCountOfUnassignedOrders() {
+        return 0;
+    }
+
+    public Integer getOrdersLeftAfterGivenTimeByPartnerId(String partnerId) {
+        return 1;
     }
 }
