@@ -25,8 +25,10 @@ public class OrderRepository {
 
 
     public void addOrder(Order order) {
+        Order newOrder;
+        newOrder = order;
         String id = order.getId();
-        orderMap.put(id, order);
+        orderMap.put(id, newOrder);
     }
 
     public void addPartner(String partnerId) {
@@ -35,10 +37,11 @@ public class OrderRepository {
     }
 
     public Order getOrder(String orderId) {
-        if(orderId == null) return new Order();
+        //if(orderId == null) return new Order();
 
         if(orderMap.containsKey(orderId)) return orderMap.get(orderId);
-        else return new Order();
+        //else return new Order();
+        return null;
     }
 
 
