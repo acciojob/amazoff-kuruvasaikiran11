@@ -5,7 +5,7 @@ import io.swagger.models.auth.In;
 public class Order {
 
     private String id;
-    private String deliveryTime;
+    private int deliveryTime;
     public Order(){}
     public Order(String id, String deliveryTime) {
 
@@ -13,15 +13,22 @@ public class Order {
         // The deliveryTime has to converted from string to int and then stored in the attribute
         //deliveryTime  = HH*60 + MM
         //noinspection UnusedAssignment
-        String dT[] = deliveryTime.split(":");
-        int hrs = Integer.parseInt(dT[0]);
-        int mins = Integer.parseInt(dT[1]);
-        this.deliveryTime = String.valueOf(hrs * 60 + mins);
+        this.deliveryTime =
+                (Integer.parseInt(deliveryTime.substring(0,2))*60 +
+                        Integer.parseInt(deliveryTime.substring(3)) );
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setDeliveryTime(int deliveryTime) {
+        this.deliveryTime = deliveryTime;
     }
 
     public String getId() {
         return id;
     }
 
-    public int getDeliveryTime() {return Integer.parseInt(deliveryTime);}
+    public int getDeliveryTime() {return deliveryTime;}
 }
